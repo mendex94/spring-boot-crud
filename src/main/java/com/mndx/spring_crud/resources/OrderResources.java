@@ -1,7 +1,7 @@
 package com.mndx.spring_crud.resources;
 
-import com.mndx.spring_crud.entities.User;
-import com.mndx.spring_crud.services.UserService;
+import com.mndx.spring_crud.entities.Order;
+import com.mndx.spring_crud.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,25 +13,25 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResources {
+@RequestMapping(value = "/orders")
+public class OrderResources {
 		@Autowired
-		private UserService userService;
+		private OrderService orderService;
 		@GetMapping
-		public ResponseEntity<List<User>> findAll() {
-			List<User> users = userService.findAll();
+		public ResponseEntity<List<Order>> findAll() {
+			List<Order> orders = orderService.findAll();
 
-			return ResponseEntity.ok().body(users);
+			return ResponseEntity.ok().body(orders);
 		}
 
 		@GetMapping(value = "/{id}")
-		public ResponseEntity<Optional<User>> findById(@PathVariable Long id) {
-				Optional<User> user = userService.findById(id);
+		public ResponseEntity<Optional<Order>> findById(@PathVariable Long id) {
+				Optional<Order> order = orderService.findById(id);
 
-				if (user.isEmpty()) {
+				if (order.isEmpty()) {
 						return ResponseEntity.notFound().build();
 				}
 
-				return ResponseEntity.ok().body(user);
+				return ResponseEntity.ok().body(order);
 		}
 }
