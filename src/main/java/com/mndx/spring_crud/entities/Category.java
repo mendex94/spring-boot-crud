@@ -1,5 +1,6 @@
 package com.mndx.spring_crud.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -18,7 +19,9 @@ public class Category implements Serializable {
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
 		private String name;
-		@Transient
+
+		@JsonIgnore
+		@ManyToMany(mappedBy = "categories")
 		private final Set<Product> products = new HashSet<>();
 
 		public Category() {
