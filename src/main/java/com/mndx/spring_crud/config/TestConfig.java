@@ -2,10 +2,12 @@ package com.mndx.spring_crud.config;
 
 import com.mndx.spring_crud.entities.Category;
 import com.mndx.spring_crud.entities.Order;
+import com.mndx.spring_crud.entities.Product;
 import com.mndx.spring_crud.entities.User;
 import com.mndx.spring_crud.entities.enums.OrderStatus;
 import com.mndx.spring_crud.repositories.CategoryRepository;
 import com.mndx.spring_crud.repositories.OrderRepository;
+import com.mndx.spring_crud.repositories.ProductRepository;
 import com.mndx.spring_crud.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +26,8 @@ public class TestConfig implements CommandLineRunner {
 		private OrderRepository orderRepository;
 		@Autowired
 		private CategoryRepository categoryRepository;
+		@Autowired
+		private ProductRepository productRepository;
 
 		@Override
 		public void run(String... args) throws Exception {
@@ -38,9 +42,16 @@ public class TestConfig implements CommandLineRunner {
 				Category categoryTwo = new Category(null, "Books");
 				Category categoryThree = new Category(null, "Computers");
 
+				Product productOne = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+				Product productTwo = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+				Product productThree = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+				Product productFour = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+				Product productFive = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
 
 				userRepository.saveAll(Arrays.asList(userOne, userTwo));
 				orderRepository.saveAll(Arrays.asList(orderOne, orderTwo, orderThree));
 				categoryRepository.saveAll(Arrays.asList(categoryOne, categoryTwo, categoryThree));
+				productRepository.saveAll(Arrays.asList(productOne, productTwo, productThree, productFour, productFive));
 		}
 }
