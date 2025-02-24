@@ -1,8 +1,10 @@
 package com.mndx.spring_crud.config;
 
+import com.mndx.spring_crud.entities.Category;
 import com.mndx.spring_crud.entities.Order;
 import com.mndx.spring_crud.entities.User;
 import com.mndx.spring_crud.entities.enums.OrderStatus;
+import com.mndx.spring_crud.repositories.CategoryRepository;
 import com.mndx.spring_crud.repositories.OrderRepository;
 import com.mndx.spring_crud.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class TestConfig implements CommandLineRunner {
 		private UserRepository userRepository;
 		@Autowired
 		private OrderRepository orderRepository;
+		@Autowired
+		private CategoryRepository categoryRepository;
 
 		@Override
 		public void run(String... args) throws Exception {
@@ -30,7 +34,13 @@ public class TestConfig implements CommandLineRunner {
 				Order orderTwo = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), userTwo, OrderStatus.WAITING_PAYMENT);
 				Order orderThree = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), userOne, OrderStatus.WAITING_PAYMENT);
 
+				Category categoryOne = new Category(null, "Electronics");
+				Category categoryTwo = new Category(null, "Books");
+				Category categoryThree = new Category(null, "Computers");
+
+
 				userRepository.saveAll(Arrays.asList(userOne, userTwo));
 				orderRepository.saveAll(Arrays.asList(orderOne, orderTwo, orderThree));
+				categoryRepository.saveAll(Arrays.asList(categoryOne, categoryTwo, categoryThree));
 		}
 }
