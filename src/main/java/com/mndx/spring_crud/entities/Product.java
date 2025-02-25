@@ -2,7 +2,6 @@ package com.mndx.spring_crud.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.aspectj.weaver.ast.Or;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -19,6 +18,7 @@ public class Product implements Serializable {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
+
 		private String name;
 		private String description;
 		private Double price;

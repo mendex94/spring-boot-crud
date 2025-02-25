@@ -20,11 +20,17 @@ public class Order implements Serializable {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
+
 		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 		private Instant moment;
+
 		@ManyToOne
 		@JoinColumn(name = "client_id")
 		private User client;
+
+		@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+		private Payment payment;
+
 		private Integer orderStatus;
 
 		@OneToMany(mappedBy = "id.order")
@@ -62,6 +68,14 @@ public class Order implements Serializable {
 
 		public void setClient(User client) {
 				this.client = client;
+		}
+
+		public Payment getPayment() {
+				return payment;
+		}
+
+		public void setPayment(Payment payment) {
+				this.payment = payment;
 		}
 
 		public OrderStatus getOrderStatus() {
