@@ -1,14 +1,8 @@
 package com.mndx.spring_crud.config;
 
-import com.mndx.spring_crud.entities.Category;
-import com.mndx.spring_crud.entities.Order;
-import com.mndx.spring_crud.entities.Product;
-import com.mndx.spring_crud.entities.User;
+import com.mndx.spring_crud.entities.*;
 import com.mndx.spring_crud.entities.enums.OrderStatus;
-import com.mndx.spring_crud.repositories.CategoryRepository;
-import com.mndx.spring_crud.repositories.OrderRepository;
-import com.mndx.spring_crud.repositories.ProductRepository;
-import com.mndx.spring_crud.repositories.UserRepository;
+import com.mndx.spring_crud.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +22,8 @@ public class TestConfig implements CommandLineRunner {
 		private CategoryRepository categoryRepository;
 		@Autowired
 		private ProductRepository productRepository;
+		@Autowired
+		private OrderItemRepository orderItemRepository;
 
 		@Override
 		public void run(String... args) throws Exception {
@@ -48,7 +44,6 @@ public class TestConfig implements CommandLineRunner {
 				Product productFour = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
 				Product productFive = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 
-
 				userRepository.saveAll(Arrays.asList(userOne, userTwo));
 				orderRepository.saveAll(Arrays.asList(orderOne, orderTwo, orderThree));
 				categoryRepository.saveAll(Arrays.asList(categoryOne, categoryTwo, categoryThree));
@@ -62,5 +57,12 @@ public class TestConfig implements CommandLineRunner {
 				productFive.getCategories().add(categoryTwo);
 
 				productRepository.saveAll(Arrays.asList(productOne, productTwo, productThree, productFour, productFive));
+
+				OrderItem orderItemOne = new OrderItem(orderOne, productOne, 2, productOne.getPrice());
+				OrderItem orderItemTwo = new OrderItem(orderOne, productThree, 1, productThree.getPrice());
+				OrderItem orderItemThree = new OrderItem(orderTwo, productThree, 2, productThree.getPrice());
+				OrderItem orderItemFour = new OrderItem(orderThree, productFive, 2, productFive.getPrice());
+
+				orderItemRepository.saveAll(Arrays.asList(orderItemOne, orderItemTwo, orderItemThree, orderItemFour));
 		}
 }
