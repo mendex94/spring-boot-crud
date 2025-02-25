@@ -1,6 +1,8 @@
 package com.mndx.spring_crud.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.aspectj.weaver.ast.Or;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -29,6 +31,9 @@ public class Product implements Serializable {
 						inverseJoinColumns = @JoinColumn(name = "category_id")
 		)
 		private final Set<Category> categories = new HashSet<>();
+
+		@OneToMany(mappedBy = "id.product")
+		private final Set<OrderItem> items = new HashSet<>();
 
 		public Product() {
 		}
@@ -83,6 +88,16 @@ public class Product implements Serializable {
 
 		public Set<Category> getCategories() {
 				return categories;
+		}
+
+		@JsonIgnore
+		public Set<Order> getOrders() {
+				Set<Order> orders = new HashSet<>();
+				for (OrderItem orderItem : items) {
+						orders.add(orderItem.getOrder());
+				}
+
+				return orders;
 		}
 
 		@Override
